@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pictionary Words Generator</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lemon|Lemonada|Lacquer|Knewave">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<style>
+	div.container-fluid{
+		margin-top: 1vw;
+	}
+	.jumbotron{
+		background-color: rgb(255, 244, 87);
+		background-image: url("images/pencil.png");
+		background-repeat: no-repeat;
+		background-position: right;
+		background-size: 16vw;
+		text-align: center;
+		font-family: Lemon, Serif;
+		color: red;
+
+	}
+	.form-group,#display {
+		padding : 3vw 3vw 0vw 3vw;
+	}
+	th{
+		padding: 2vw;
+	}
+	
+	button{
+		margin: 2vw;
+		align-content: center;
+	}
+	#display{
+		
+		background-image: url("images/p1.jfif");
+		background-repeat: no-repeat;
+		/*background-attachment: fixed;*/
+		background-size: cover;
+		font-family: Knewave;
+		/*font-weight: bold;*/
+		font-size: 2.5vw;
+		padding-top: 1vw;
+	}
+	
+</style>
+
+</head>
+<script >
+	$(document).ready(function(){
+		var h=$(document).height();
+		var w=$(document).width();
+		
+		$("#welcome,#im1").css({
+			height:h,
+			width:w,
+		}).fadeOut(4000,function(){
+			$("#myHome").fadeIn();
+		});
+		
+	});
+</script>
+
+<body>
+	<div id="welcome" style="background-color: black;"><center><img id="im1" src="images/load1.gif"></center></div>
+	<div class="container-fluid" id="myHome" style="display:none">
+
+<!-- The Modal -->
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title" style="text-align:center;">Rules</h3>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        The rules of the game are pretty simple.<br><li> One person on your team is designated to be the first person to draw a picture of whatever random Pictionary word is generated.</li><li> Once they see the word, they have 5 seconds to think before they begin to draw.</li><li> Once they begin drawing, they have 1 minute to try to get their partner to guess the random word.</li><li> If the partner succeeds in guessing the correct word being drawn, the team gets a point, but they get zero points if they don't.</li><li> Team two does the same thing, then the person drawing is switched for round two.</li><li> After a designated number of rounds, the team with the most points wins.</li>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" style="float:center;">Play Now</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<script>
+	/*$(document).ready(function(){
+		$("#myModal").modal('show');
+		
+	});*/
+	//document.getElementById("myModal").modal('show');
+		setTimeout(function(){
+			$('#myModal').modal('show');
+		},7000);
+	
+</script>
+<!--End of Modal-->
+		<!-- Header-->
+		<div class="jumbotron">
+			<h1>Pictionary Words Generator</h1>
+		</div> 
+
+		<!-- Second Part-->
+		<div class="row shadow p-4 mb-4 bg-white" style="margin: 5px;">
+    <div class="col-sm-6"style="background-color:lavender;">
+    	<form>
+    		<div class="form-group">
+    			<table>
+    				<tr>
+    			<th><label for="no_of_words" style="font-family: Lemonada;font-size:20px;">Number of Words</label></th>
+    			<th>
+    			<input type="Number" min="1" max="10" value='1' id="num"></th>
+    		</tr></table>
+    		</div>
+    		<center>
+    			<button type="button" class="btn btn-lg btn-info" onclick="pict()">Generate Words</button>
+    		</center>
+    		
+    	</form>
+    	
+    </div>
+    <div class="col-sm-6" id="display" style="text-align: center;">
+    	<p id="demo"></p>
+    	
+    </div>
+    <script>
+
+    	
+    	var words=["banana","apple","mango","cherry","grapes","pear","pineapple","strawberry","watermelon","orange","tomato","potato","onion","mushroom","carrot","cucumber","brocoli","pumpkin","sun","moon","mountain","waterdrop","star","pond","tree","river","flower","leaf","rainbow","dog","cat","mouse","duck","fish","giraffe","dolphin","elephant","peacock","butterfly","octopus","fly","cockroach","horse","spider","ear","nose","hands","lips","eyes","finger","face","heart","bone","sad","cry","happy","mad",'car','bicycle','bike','truck','tractor','airplane','boat','ship','hot-air balloon','skateboard','swing','slide','table','book','socks','coat','kite','spoon','light','smile','shoe','hat','drum','flute','jacket','cap','cup','jar','glass','water','juice','wine','circle','square','rectangle','snowflake','pen','pencil','eraser','stapler','punching machine','highlighter','pencil-box','bag','laptop','computer','CPU','cutter','knife','keys','scissors','king','queen','diamond','gold','olympic','run','fast','prize','laughter','white-board','bed','sofa','dining table','spoon and fork','tooth','mirror','first', 'play','speaker','earphones','cube','sphere','Earth','bread','clock','pillow','nail','hammer','stairs','side','broom','button','bat','ball','desk','box','shirt','dream','ghost','bench','chair','bathroom','notebook','mail','letter','camera','mobile','facebook','youtube','maps','door','home','flat','park','cricket','baseball','football','shooting','archery','skates','nature','hockey','mattress','circus','half','lightbulb','treasure','whistle','photograph','battery','password','electricity','teapot','song','bomb','ski','garbage','palace','deep','India','music','tiny','large','scale','ruler','subway','metro','train','sick','stick','container','air','shopping','skirts','jeans','sweat','sweaters','cardigan','boots','heels','makeup','notepad','telephone','shopping mall','disneyland','hospital','police','highway','grade','calendar','time-table','keyboard','mask','distance','speed','umbrella','rainy season','winter','summer','spring','shutdown','window','sunrise','cloudy','humid','air-conditioner','chalk','marker','hiking','hacking','cheer', 'toothbrush','message','drawing','fog','pollution',"money","coin","wallet","spes","ring","bangles","teddybear", "arrow"];
+
+    	/*var rand = Math.floor(Math.random()*words.length );
+    	document.getElementById("demo").innerHTML=words[rand];
+
+    	*/
+    	
+
+    	function pict(){
+
+    		var word_list="";
+    		var n=document.getElementById("num").value;
+
+    		//validate n
+    		if ( n<1 || n>10){
+    			alert("Please enter a valid number between 1 and 10");
+    		}
+    		else{
+    		for (i=0;i<n;i++){
+    			var rand = Math.floor(Math.random()*words.length );
+    		 word_list+=words[rand]+"<br>";
+
+    		}
+    		document.getElementById("demo").innerHTML=word_list;
+    	}
+    	}
+    	
+    </script>
+    
+  	</div>
+
+
+	</div>
+</body>
+</html>
